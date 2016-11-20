@@ -1,0 +1,5 @@
+<br />
+<a ng-if="!user.id" href="/login/facebook">Log In with Facebook</a>
+<div ng-if="!!user.id" data-ng-repeat="key in user">
+  {{key}}:{{user[key]}}
+</div>

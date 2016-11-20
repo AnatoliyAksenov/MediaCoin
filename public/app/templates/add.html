@@ -1,0 +1,67 @@
+<br />
+<form>
+  <div class="form-group">
+    <label for="name">Название</label>
+    <input type="text" class="form-control" id="name" placeholder="medianame" ng-model="medianame">
+  </div>
+  <div class="form-group">
+    <label for="mediaprice">Цена</label>
+    <input type="text" class="form-control" id="mediaprice" placeholder="100" ng-model="mediaprice">
+  </div>
+    <div class="form-group">
+    <label for="fileToUpload">Файл</label>
+    <input type="file" class="form-control" id="fileToUpload" placeholder="Файл" ng-model="mediafile" multiple onchange="angular.element(this).scope().setFiles(this)" />
+  </div>
+
+ <div ng-show="files.length">
+        <div ng-repeat="file in files.slice(0)">
+            <span>{{file.webkitRelativePath || file.name}}</span>
+            (<span ng-switch="file.size > 1024*1024">
+                <span ng-switch-when="true">{{file.size / 1024 / 1024 | number:2}} MB</span>
+                <span ng-switch-default>{{file.size / 1024 | number:2}} kB</span>
+            </span>)
+        </div>
+        <button type="button" class="btn btn-primary" ng-click="uploadFile(medianame, mediaprice)" data-toggle="modal" data-target="#myModal" >Send</button>
+        <div ng-show="progressVisible">
+            <div class="percent">{{progress}}%</div>
+            <div class="progress-bar">
+                <div class="uploaded" ng-style="{'width': progress+'%'}"></div>
+            </div>
+        </div>
+ </div>  
+ 
+</form>
+<br />
+
+
+
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Результат запроса</h4>
+      </div>
+      <div class="modal-body" ng-if="!!result">
+        <span style="display: block; word-wrap: break-word;">Результат: {{result}}</span>
+      </div>
+      <div class="modal-body" ng-if="!!error">
+        <span style="display:block; word-wrap: break-word;">Ошибка: {{error}}</span>
+      </div>
+      
+      <div class="modal-body" ng-if="!result && !error">
+        <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-cog fa-spin fa-fw" ng-if="!result && !error"></i>&nbsp;Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

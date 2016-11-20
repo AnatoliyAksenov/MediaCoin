@@ -1,0 +1,13 @@
+<div class="row">
+    <h2>News</h2>
+</div>    
+
+<div  ng-init="newsInit()">
+    <div ng-model="news" ng-repeat="item in news" >
+        <div>{{$index}}</div>
+        <h3>{{item.title}}</h3>
+        <div>{{item.body}}</div>
+        <div>{{item.link}}</div>
+    </div>    
+</div>
+
